@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>60 दिन में अंग्रेज़ी बोलें — English Speaking Course</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="English 60">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #dbeafe;
+  --accent: #f59e0b;
+  --success: #10b981;
+  --bg: #f8fafc;
+  --sidebar-bg: #1e293b;
+  --sidebar-text: #cbd5e1;
+  --sidebar-active: #2563eb;
+  --card-bg: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --hindi-bg: #fef3c7;
+  --pattern-bg: #ede9fe;
+  --convo-bg: #ecfdf5;
+  --exercise-bg: #fce7f3;
+  --speak-bg: #e0f2fe;
+  --challenge-bg: #fef2f2;
+}
+
+body {
+  font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.hindi { font-family: 'Noto Sans Devanagari', sans-serif; }
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 280px;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  overflow-y: auto;
+  z-index: 100;
+  transition: transform 0.3s;
+}
+
+.sidebar-header {
+  padding: 20px;
+  background: rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.sidebar-header h1 {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.sidebar-header p {
+  font-size: 12px;
+  color: var(--sidebar-text);
+}
+
+.sidebar-progress {
+  padding: 12px 20px;
+  background: rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--success);
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.progress-text {
+  font-size: 11px;
+  margin-top: 4px;
+  color: var(--sidebar-text);
+}
+
+.week-group { border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+.week-header {
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.week-header:hover { background: rgba(255,255,255,0.05); }
+
+.week-header .arrow {
+  transition: transform 0.2s;
+  font-size: 10px;
+}
+
+.week-header.open .arrow { transform: rotate(90deg); }
+
+.week-days {
+  display: none;
+  padding-bottom: 8px;
+}
+
+.week-days.open { display: block; }
+
+.day-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 20px 8px 32px;
+  font-size: 13px;
+  color: var(--sidebar-text);
+  cursor: pointer;
+  transition: all 0.2s;
+  gap: 8px;
+}
+
+.day-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+
+.day-link.active {
+  background: var(--sidebar-active);
+  color: #fff;
+  font-weight: 500;
+}
+
+.day-link .check {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.day-link .check.done {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+
+/* Topbar */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 280px;
+  right: 0;
+  height: 60px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 90;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.topbar-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.topbar-right {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-outline { background: #fff; color: var(--text); border: 1px solid var(--border); }
+.btn-outline:hover { background: var(--bg); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover { background: #059669; }
+
+/* Main Content */
+.main {
+  margin-left: 280px;
+  margin-top: 60px;
+  padding: 32px;
+  max-width: 900px;
+}
+
+.day-header {
+  margin-bottom: 32px;
+}
+
+.day-number {
+  font-size: 14px;
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.day-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.day-goal {
+  background: var(--primary-light);
+  border-left: 4px solid var(--primary);
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  font-size: 15px;
+}
+
+.day-goal strong { color: var(--primary); }
+
+/* Sections */
+.section {
+  margin-bottom: 32px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.section-header {
+  padding: 16px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-header .icon { font-size: 22px; }
+.section-header .time { font-size: 12px; color: var(--text-light); font-weight: 400; margin-left: auto; }
+
+.section-body { padding: 0 20px 20px; }
+
+.section-words .section-header { background: var(--hindi-bg); }
+.section-pattern .section-header { background: var(--pattern-bg); }
+.section-convo .section-header { background: var(--convo-bg); }
+.section-exercise .section-header { background: var(--exercise-bg); }
+.section-speak .section-header { background: var(--speak-bg); }
+.section-challenge .section-header { background: var(--challenge-bg); }
+
+/* Word Table */
+.word-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.word-table th {
+  text-align: left;
+  padding: 10px 12px;
+  background: var(--bg);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-light);
+  border-bottom: 2px solid var(--border);
+}
+
+.word-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  vertical-align: top;
+}
+
+.word-table tr:last-child td { border-bottom: none; }
+
+.word-en { font-weight: 600; color: var(--primary-dark); font-size: 16px; }
+.word-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 15px; }
+.word-pron { font-family: 'Noto Sans Devanagari', sans-serif; color: var(--text-light); font-size: 13px; }
+
+.word-examples {
+  margin-top: 8px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.word-examples li {
+  margin-bottom: 6px;
+  font-size: 14px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.word-examples li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+.word-examples .hi-trans {
+  display: block;
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+/* Pattern */
+.pattern-box {
+  background: var(--pattern-bg);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.pattern-hi {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #5b21b6;
+  margin-bottom: 4px;
+}
+
+.pattern-arrow { font-size: 24px; color: var(--text-light); margin: 4px 0; }
+
+.pattern-en {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.pattern-examples {
+  list-style: none;
+  padding: 0;
+}
+
+.pattern-examples li {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pattern-examples li:last-child { border-bottom: none; }
+
+.pattern-examples .en { font-weight: 500; font-size: 15px; }
+.pattern-examples .hi {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+/* Conversation */
+.convo {
+  margin-bottom: 20px;
+  background: var(--bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.convo-title {
+  padding: 10px 16px;
+  background: var(--convo-bg);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.convo-line {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  align-items: start;
+}
+
+.convo-line:last-child { border-bottom: none; }
+
+.convo-speaker {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 13px;
+}
+
+.convo-hi {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+/* Exercises */
+.exercise {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: var(--bg);
+  border-radius: 8px;
+}
+
+.exercise-type {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.exercise-q {
+  margin-bottom: 8px;
+  font-size: 14px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.exercise-q .blank {
+  display: inline-block;
+  min-width: 80px;
+  border-bottom: 2px solid var(--primary);
+  margin: 0 4px;
+}
+
+.exercise-hint {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  color: var(--text-light);
+  font-size: 12px;
+}
+
+.answer-key {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #f0fdf4;
+  border-radius: 8px;
+  border: 1px dashed var(--success);
+}
+
+.answer-key summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--success);
+}
+
+.answer-key .answers {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* Speaking */
+.speak-item {
+  padding: 10px 16px;
+  background: var(--bg);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.speak-item .hi-text {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  color: var(--text-light);
+  font-size: 13px;
+  display: block;
+  margin-top: 2px;
+}
+
+/* Challenge */
+.challenge-text {
+  font-size: 15px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.challenge-lines {
+  list-style: none;
+  padding: 0;
+}
+
+.challenge-lines li {
+  padding: 12px;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* Day Navigation */
+.day-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.day-nav .btn { min-width: 140px; justify-content: center; }
+
+/* Complete Day Button */
+.complete-section {
+  text-align: center;
+  margin-top: 24px;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .topbar { left: 0; }
+  .menu-btn { display: block; }
+  .convo-line { grid-template-columns: 1fr; gap: 4px; }
+  .convo-hi { padding-left: 0; }
+}
+
+/* Print Styles */
+@media print {
+  .sidebar, .topbar, .day-nav, .menu-btn, .btn, .complete-section, .sidebar-overlay { display: none !important; }
+  .main {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  .day-header { page-break-after: avoid; }
+  .section { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; margin-bottom: 20px; }
+  .day-number { color: #000; }
+  body { font-size: 12pt; }
+  .word-table { font-size: 11pt; }
+  .print-day-break { page-break-before: always; }
+  .print-show { display: block !important; }
+  a { color: #000; text-decoration: none; }
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+}
+
+.sidebar-overlay.open { display: block; }
+
+/* Revision day specific */
+.revision-section { margin-bottom: 20px; }
+.revision-section h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.vocab-review {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.vocab-chip {
+  padding: 8px 12px;
+  background: var(--bg);
+  border-radius: 6px;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.vocab-chip .en { font-weight: 600; }
+.vocab-chip .hi { font-family: 'Noto Sans Devanagari', sans-serif; color: var(--text-light); }
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h1 class="hindi">60 दिन में अंग्रेज़ी बोलें</h1>
+    <p>English Speaking Course</p>
+  </div>
+  <div class="sidebar-progress">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-text" id="progressText">0/60 days completed</div>
+  </div>
+  <nav id="sidebarNav"></nav>
+</aside>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <span class="topbar-title" id="topbarTitle">Day 1</span>
+  </div>
+  <div class="topbar-right">
+    <button class="btn btn-outline" onclick="printDay()">🖨 Print Day</button>
+    <button class="btn btn-outline" onclick="printWeek()">🖨 Print Week</button>
+  </div>
+</header>
+
+<main class="main" id="content"></main>
+
+<script>
+const COURSE = [];
+
+const WEEKS = [
+  { num: 1, title: 'पहला कदम — First Steps', days: [1,2,3,4,5,6,7] },
+  { num: 2, title: 'रोज़मर्रा — Daily Routine', days: [8,9,10,11,12,13,14] },
+  { num: 3, title: 'पहले पैटर्न — First Patterns', days: [15,16,17,18,19,20,21] },
+  { num: 4, title: 'बीता कल और आने वाला कल — Past & Future', days: [22,23,24,25,26,27,28] },
+  { num: 5, title: 'असली बातचीत — Real Conversations', days: [29,30,31,32,33,34,35] },
+  { num: 6, title: 'सामाजिक अंग्रेज़ी — Social English', days: [36,37,38,39,40,41,42] },
+  { num: 7, title: 'विश्वास से बोलें — Speak with Confidence', days: [43,44,45,46,47,48,49] },
+  { num: 8, title: 'बेहतर अंग्रेज़ी — Better English', days: [50,51,52,53,54,55,56] },
+  { num: 9, title: 'फ़ाइनल वीक — Final Week', days: [57,58,59,60] },
+];
+
+// ===== DAY 1 =====
+COURSE[1] = {
+  day: 1, titleHi: 'नमस्ते से Hello तक', titleEn: 'Greetings & Self Introduction',
+  goal: 'आज के बाद आप अंग्रेज़ी में नमस्ते कर पाएँगे और अपना परिचय दे पाएँगे।',
+  words: [
+    { en: 'Hello', hi: 'नमस्ते', pron: 'हे-लो', ex: [
+      { en: 'Hello, how are you?', hi: 'नमस्ते, आप कैसे हैं?' },
+      { en: 'Hello everyone!', hi: 'सबको नमस्ते!' }
+    ]},
+    { en: 'Good morning', hi: 'सुप्रभात', pron: 'गुड मॉर्निंग', ex: [
+      { en: 'Good morning, sir.', hi: 'सुप्रभात, सर।' },
+      { en: 'Good morning! Did you sleep well?', hi: 'सुप्रभात! आपकी नींद अच्छी हुई?' }
+    ]},
+    { en: 'Good afternoon', hi: 'नमस्कार (दोपहर)', pron: 'गुड आफ़्टरनून', ex: [
+      { en: 'Good afternoon, madam.', hi: 'नमस्कार, मैडम।' },
+      { en: 'Good afternoon, welcome to the office.', hi: 'नमस्कार, ऑफ़िस में आपका स्वागत है।' }
+    ]},
+    { en: 'Good evening', hi: 'नमस्कार (शाम)', pron: 'गुड ईवनिंग', ex: [
+      { en: 'Good evening, how was your day?', hi: 'नमस्कार, आपका दिन कैसा रहा?' },
+      { en: 'Good evening, please come in.', hi: 'नमस्कार, अंदर आइए।' }
+    ]},
+    { en: 'Good night', hi: 'शुभ रात्रि', pron: 'गुड नाइट', ex: [
+      { en: 'Good night, see you tomorrow.', hi: 'शुभ रात्रि, कल मिलते हैं।' },
+      { en: 'Good night, sleep well.', hi: 'शुभ रात्रि, अच्छी नींद लें।' }
+    ]},
+    { en: 'My', hi: 'मेरा / मेरी', pron: 'माय', ex: [
+      { en: 'My name is Priya.', hi: 'मेरा नाम प्रिया है।' },
+      { en: 'This is my house.', hi: 'यह मेरा घर है।' }
+    ]},
+    { en: 'Name', hi: 'नाम', pron: 'नेम', ex: [
+      { en: 'What is your name?', hi: 'आपका नाम क्या है?' },
+      { en: 'My name is Rahul.', hi: 'मेरा नाम राहुल है।' }
+    ]},
+    { en: 'I', hi: 'मैं', pron: 'आइ', ex: [
+      { en: 'I am from Delhi.', hi: 'मैं दिल्ली से हूँ।' },
+      { en: 'I am happy.', hi: 'मैं खुश हूँ।' }
+    ]},
+    { en: 'You', hi: 'आप / तुम', pron: 'यू', ex: [
+      { en: 'You are very nice.', hi: 'आप बहुत अच्छे हैं।' },
+      { en: 'How are you?', hi: 'आप कैसे हैं?' }
+    ]},
+    { en: 'Am / Is / Are', hi: 'हूँ / है / हैं', pron: 'ऐम / इज़ / आर', ex: [
+      { en: 'I am a teacher.', hi: 'मैं एक टीचर हूँ।' },
+      { en: 'She is my sister.', hi: 'वह मेरी बहन है।' }
+    ]},
+    { en: 'From', hi: 'से', pron: 'फ़्रॉम', ex: [
+      { en: 'I am from India.', hi: 'मैं भारत से हूँ।' },
+      { en: 'Where are you from?', hi: 'आप कहाँ से हैं?' }
+    ]},
+    { en: 'Nice', hi: 'अच्छा', pron: 'नाइस', ex: [
+      { en: 'Nice to meet you.', hi: 'आपसे मिलकर अच्छा लगा।' },
+      { en: 'This is a nice place.', hi: 'यह अच्छी जगह है।' }
+    ]},
+    { en: 'Meet', hi: 'मिलना', pron: 'मीट', ex: [
+      { en: 'Nice to meet you.', hi: 'आपसे मिलकर अच्छा लगा।' },
+      { en: 'I want to meet you.', hi: 'मैं आपसे मिलना चाहता हूँ।' }
+    ]},
+    { en: 'Thank you', hi: 'धन्यवाद / शुक्रिया', pron: 'थैंक यू', ex: [
+      { en: 'Thank you very much.', hi: 'बहुत-बहुत धन्यवाद।' },
+      { en: 'Thank you for your help.', hi: 'आपकी मदद के लिए शुक्रिया।' }
+    ]},
+    { en: 'Please', hi: 'कृपया', pron: 'प्लीज़', ex: [
+      { en: 'Please sit down.', hi: 'कृपया बैठिए।' },
+      { en: 'Please give me water.', hi: 'कृपया मुझे पानी दीजिए।' }
+    ]},
+    { en: 'Sorry', hi: 'माफ़ कीजिए', pron: 'सॉरी', ex: [
+      { en: 'Sorry, I am late.', hi: 'माफ़ कीजिए, मुझे देर हो गई।' },
+      { en: 'I am very sorry.', hi: 'मुझे बहुत खेद है।' }
+    ]},
+    { en: 'Yes', hi: 'हाँ', pron: 'यस', ex: [
+      { en: 'Yes, I understand.', hi: 'हाँ, मैं समझता हूँ।' },
+      { en: 'Yes, please.', hi: 'हाँ, कृपया।' }
+    ]},
+    { en: 'No', hi: 'नहीं', pron: 'नो', ex: [
+      { en: 'No, thank you.', hi: 'नहीं, धन्यवाद।' },
+      { en: 'No problem.', hi: 'कोई बात नहीं।' }
+    ]},
+    { en: 'Welcome', hi: 'स्वागत है / आपका स्वागत है', pron: 'वेल्कम', ex: [
+      { en: 'Welcome to my home.', hi: 'मेरे घर में आपका स्वागत है।' },
+      { en: 'You are welcome.', hi: 'कोई बात नहीं। (जवाब में)' }
+    ]},
+    { en: 'How', hi: 'कैसे / कैसा', pron: 'हाउ', ex: [
+      { en: 'How are you?', hi: 'आप कैसे हैं?' },
+      { en: 'How is the weather?', hi: 'मौसम कैसा है?' }
+    ]},
+  ],
+  patterns: [
+    {
+      hi: 'मेरा नाम ___ है।',
+      en: 'My name is ___.',
+      examples: [
+        { en: 'My name is Amit.', hi: 'मेरा नाम अमित है।' },
+        { en: 'My name is Sunita.', hi: 'मेरा नाम सुनीता है।' },
+        { en: 'My name is Raj Kumar.', hi: 'मेरा नाम राज कुमार है।' },
+      ]
+    },
+    {
+      hi: 'मैं ___ से हूँ।',
+      en: 'I am from ___.',
+      examples: [
+        { en: 'I am from Delhi.', hi: 'मैं दिल्ली से हूँ।' },
+        { en: 'I am from Mumbai.', hi: 'मैं मुंबई से हूँ।' },
+        { en: 'I am from a small village.', hi: 'मैं एक छोटे गाँव से हूँ।' },
+        { en: 'I am from India.', hi: 'मैं भारत से हूँ।' },
+      ]
+    },
+    {
+      hi: 'मैं ___ हूँ।',
+      en: 'I am ___.',
+      examples: [
+        { en: 'I am happy.', hi: 'मैं खुश हूँ।' },
+        { en: 'I am fine.', hi: 'मैं ठीक हूँ।' },
+        { en: 'I am a teacher.', hi: 'मैं एक टीचर हूँ।' },
+        { en: 'I am ready.', hi: 'मैं तैयार हूँ।' },
+        { en: 'I am tired.', hi: 'मैं थका हूँ।' },
+      ]
+    },
+  ],
+  conversations: [
+    {
+      title: 'पहली मुलाक़ात — Meeting Someone for the First Time',
+      lines: [
+        { speaker: 'Amit', en: 'Hello! Good morning.', hi: 'हेलो! सुप्रभात।' },
+        { speaker: 'Priya', en: 'Good morning! How are you?', hi: 'सुप्रभात! आप कैसे हैं?' },
+        { speaker: 'Amit', en: 'I am fine, thank you. And you?', hi: 'मैं ठीक हूँ, शुक्रिया। और आप?' },
+        { speaker: 'Priya', en: 'I am good. My name is Priya. What is your name?', hi: 'मैं अच्छी हूँ। मेरा नाम प्रिया है। आपका नाम क्या है?' },
+        { speaker: 'Amit', en: 'My name is Amit. I am from Jaipur.', hi: 'मेरा नाम अमित है। मैं जयपुर से हूँ।' },
+        { speaker: 'Priya', en: 'Nice to meet you, Amit!', hi: 'आपसे मिलकर अच्छा लगा, अमित!' },
+        { speaker: 'Amit', en: 'Nice to meet you too. Thank you.', hi: 'मुझे भी। धन्यवाद।' },
+      ]
+    },
+    {
+      title: 'पड़ोसी से मिलना — Meeting a Neighbor',
+      lines: [
+        { speaker: 'Ravi', en: 'Good evening! Are you new here?', hi: 'नमस्कार! क्या आप यहाँ नए हैं?' },
+        { speaker: 'Meena', en: 'Yes, I am new. My name is Meena.', hi: 'हाँ, मैं नई हूँ। मेरा नाम मीना है।' },
+        { speaker: 'Ravi', en: 'Welcome! My name is Ravi. I am from this area.', hi: 'स्वागत है! मेरा नाम रवि है। मैं इसी इलाक़े से हूँ।' },
+        { speaker: 'Meena', en: 'Thank you. Nice to meet you.', hi: 'धन्यवाद। आपसे मिलकर अच्छा लगा।' },
+        { speaker: 'Ravi', en: 'Nice to meet you too. Please come for tea sometime.', hi: 'मुझे भी। कभी चाय पर आइए।' },
+        { speaker: 'Meena', en: 'Yes, sure. Thank you!', hi: 'हाँ, ज़रूर। शुक्रिया!' },
+      ]
+    },
+  ],
+  exercises: [
+    {
+      type: 'हिंदी से अंग्रेज़ी — Translate to English',
+      questions: [
+        { q: 'नमस्ते, आप कैसे हैं?', a: 'Hello, how are you?' },
+        { q: 'मेरा नाम सीमा है।', a: 'My name is Seema.' },
+        { q: 'मैं दिल्ली से हूँ।', a: 'I am from Delhi.' },
+        { q: 'आपसे मिलकर अच्छा लगा।', a: 'Nice to meet you.' },
+        { q: 'कृपया बैठिए।', a: 'Please sit down.' },
+        { q: 'बहुत-बहुत धन्यवाद।', a: 'Thank you very much.' },
+        { q: 'मैं ठीक हूँ।', a: 'I am fine.' },
+        { q: 'शुभ रात्रि।', a: 'Good night.' },
+      ]
+    },
+    {
+      type: 'ख़ाली जगह भरें — Fill in the Blanks',
+      questions: [
+        { q: '___ name is Rahul.', hint: 'मेरा', a: 'My' },
+        { q: 'I ___ from Lucknow.', hint: 'हूँ', a: 'am' },
+        { q: 'Good ___, sir.', hint: 'सुबह', a: 'morning' },
+        { q: 'Nice to ___ you.', hint: 'मिलना', a: 'meet' },
+        { q: '___ you very much.', hint: 'धन्यवाद', a: 'Thank' },
+        { q: '___, I am late.', hint: 'माफ़ कीजिए', a: 'Sorry' },
+        { q: 'How ___ you?', hint: 'हैं', a: 'are' },
+        { q: '___ to my home.', hint: 'स्वागत है', a: 'Welcome' },
+      ]
+    },
+    {
+      type: 'सही जोड़ी बनाएँ — Match the Pairs',
+      questions: [
+        { q: 'Good morning', a: 'सुप्रभात' },
+        { q: 'Thank you', a: 'धन्यवाद' },
+        { q: 'Sorry', a: 'माफ़ कीजिए' },
+        { q: 'Please', a: 'कृपया' },
+        { q: 'Welcome', a: 'स्वागत है' },
+        { q: 'Good night', a: 'शुभ रात्रि' },
+        { q: 'How are you?', a: 'आप कैसे हैं?' },
+        { q: 'My name is...', a: 'मेरा नाम ... है' },
+      ]
+    },
+  ],
+  speaking: [
+    { en: 'Hello! My name is ___. I am from ___.', hi: 'हेलो! मेरा नाम ___ है। मैं ___ से हूँ।' },
+    { en: 'Good morning! How are you? I am fine, thank you.', hi: 'सुप्रभात! आप कैसे हैं? मैं ठीक हूँ, शुक्रिया।' },
+    { en: 'Nice to meet you. Welcome to my home.', hi: 'आपसे मिलकर अच्छा लगा। मेरे घर में आपका स्वागत है।' },
+    { en: 'Please sit down. Thank you very much.', hi: 'कृपया बैठिए। बहुत-बहुत धन्यवाद।' },
+    { en: 'Sorry, I am late. Good night, see you tomorrow.', hi: 'माफ़ कीजिए, मुझे देर हो गई। शुभ रात्रि, कल मिलते हैं।' },
+  ],
+  challenge: 'अपने बारे में 5 वाक्य अंग्रेज़ी में बोलें:\n1. अपना नाम बताएँ (My name is...)\n2. आप कहाँ से हैं (I am from...)\n3. आप कैसे हैं (I am...)\n4. किसी को नमस्ते कहें (Hello / Good morning...)\n5. धन्यवाद कहें (Thank you...)',
+};
+
+// ===== DAY 2 =====
+COURSE[2] = {
+  day: 2, titleHi: 'मेरा परिवार', titleEn: 'Family Members & Relationships',
+  goal: 'आज के बाद आप अपने परिवार के बारे में अंग्रेज़ी में बता पाएँगे।',
+  words: [
+    { en: 'Family', hi: 'परिवार', pron: 'फ़ैमिली', ex: [
+      { en: 'My family is big.', hi: 'मेरा परिवार बड़ा है।' },
+      { en: 'I love my family.', hi: 'मैं अपने परिवार से प्यार करता हूँ।' }
+    ]},
+    { en: 'Father', hi: 'पिताजी', pron: 'फ़ादर', ex: [
+      { en: 'My father is a teacher.', hi: 'मेरे पिताजी टीचर हैं।' },
+      { en: 'My father is very kind.', hi: 'मेरे पिताजी बहुत दयालु हैं।' }
+    ]},
+    { en: 'Mother', hi: 'माँ', pron: 'मदर', ex: [
+      { en: 'My mother cooks very well.', hi: 'मेरी माँ बहुत अच्छा खाना बनाती हैं।' },
+      { en: 'I love my mother.', hi: 'मैं अपनी माँ से प्यार करता हूँ।' }
+    ]},
+    { en: 'Brother', hi: 'भाई', pron: 'ब्रदर', ex: [
+      { en: 'My brother is older than me.', hi: 'मेरा भाई मुझसे बड़ा है।' },
+      { en: 'I have two brothers.', hi: 'मेरे दो भाई हैं।' }
+    ]},
+    { en: 'Sister', hi: 'बहन', pron: 'सिस्टर', ex: [
+      { en: 'My sister is very smart.', hi: 'मेरी बहन बहुत होशियार है।' },
+      { en: 'I have one sister.', hi: 'मेरी एक बहन है।' }
+    ]},
+    { en: 'Son', hi: 'बेटा', pron: 'सन', ex: [
+      { en: 'My son goes to school.', hi: 'मेरा बेटा स्कूल जाता है।' },
+      { en: 'My son is five years old.', hi: 'मेरा बेटा पाँच साल का है।' }
+    ]},
+    { en: 'Daughter', hi: 'बेटी', pron: 'डॉटर', ex: [
+      { en: 'My daughter is very good at studies.', hi: 'मेरी बेटी पढ़ाई में बहुत अच्छी है।' },
+      { en: 'My daughter likes dancing.', hi: 'मेरी बेटी को नाचना पसंद है।' }
+    ]},
+    { en: 'Husband', hi: 'पति', pron: 'हज़्बैंड', ex: [
+      { en: 'My husband works in a bank.', hi: 'मेरे पति बैंक में काम करते हैं।' },
+      { en: 'My husband is a good person.', hi: 'मेरे पति अच्छे इंसान हैं।' }
+    ]},
+    { en: 'Wife', hi: 'पत्नी', pron: 'वाइफ़', ex: [
+      { en: 'My wife is a doctor.', hi: 'मेरी पत्नी डॉक्टर हैं।' },
+      { en: 'My wife makes great tea.', hi: 'मेरी पत्नी बहुत अच्छी चाय बनाती हैं।' }
+    ]},
+    { en: 'Grandfather', hi: 'दादाजी / नानाजी', pron: 'ग्रैंडफ़ादर', ex: [
+      { en: 'My grandfather tells great stories.', hi: 'मेरे दादाजी बहुत अच्छी कहानियाँ सुनाते हैं।' },
+      { en: 'My grandfather is 80 years old.', hi: 'मेरे दादाजी 80 साल के हैं।' }
+    ]},
+    { en: 'Grandmother', hi: 'दादीजी / नानीजी', pron: 'ग्रैंडमदर', ex: [
+      { en: 'My grandmother lives with us.', hi: 'मेरी दादीजी हमारे साथ रहती हैं।' },
+      { en: 'My grandmother loves cooking.', hi: 'मेरी दादीजी को खाना बनाना बहुत पसंद है।' }
+    ]},
+    { en: 'Uncle', hi: 'चाचा / मामा / ताऊ', pron: 'अंकल', ex: [
+      { en: 'My uncle lives in Pune.', hi: 'मेरे चाचा पुणे में रहते हैं।' },
+      { en: 'My uncle is very funny.', hi: 'मेरे चाचा बहुत मज़ेदार हैं।' }
+    ]},
+    { en: 'Aunt', hi: 'चाची / मामी / बुआ', pron: 'आंट', ex: [
+      { en: 'My aunt is a nurse.', hi: 'मेरी चाची नर्स हैं।' },
+      { en: 'My aunt visits us every month.', hi: 'मेरी चाची हर महीने हमसे मिलने आती हैं।' }
+    ]},
+    { en: 'Child / Children', hi: 'बच्चा / बच्चे', pron: 'चाइल्ड / चिल्ड्रन', ex: [
+      { en: 'I have two children.', hi: 'मेरे दो बच्चे हैं।' },
+      { en: 'The children are playing.', hi: 'बच्चे खेल रहे हैं।' }
+    ]},
+    { en: 'Boy', hi: 'लड़का', pron: 'बॉय', ex: [
+      { en: 'The boy is studying.', hi: 'लड़का पढ़ रहा है।' },
+      { en: 'That boy is my nephew.', hi: 'वह लड़का मेरा भतीजा है।' }
+    ]},
+    { en: 'Girl', hi: 'लड़की', pron: 'गर्ल', ex: [
+      { en: 'The girl is singing.', hi: 'लड़की गा रही है।' },
+      { en: 'That girl is very talented.', hi: 'वह लड़की बहुत प्रतिभाशाली है।' }
+    ]},
+    { en: 'Friend', hi: 'दोस्त', pron: 'फ़्रेंड', ex: [
+      { en: 'She is my best friend.', hi: 'वह मेरी सबसे अच्छी दोस्त है।' },
+      { en: 'I am going to my friend\'s house.', hi: 'मैं अपने दोस्त के घर जा रहा हूँ।' }
+    ]},
+    { en: 'Neighbor', hi: 'पड़ोसी', pron: 'नेबर', ex: [
+      { en: 'My neighbor is very helpful.', hi: 'मेरा पड़ोसी बहुत मददगार है।' },
+      { en: 'Our neighbors are nice people.', hi: 'हमारे पड़ोसी अच्छे लोग हैं।' }
+    ]},
+    { en: 'Love', hi: 'प्यार / प्यार करना', pron: 'लव', ex: [
+      { en: 'I love my family.', hi: 'मैं अपने परिवार से प्यार करता हूँ।' },
+      { en: 'My parents love me very much.', hi: 'मेरे माता-पिता मुझसे बहुत प्यार करते हैं।' }
+    ]},
+    { en: 'Live', hi: 'रहना', pron: 'लिव', ex: [
+      { en: 'I live in Delhi.', hi: 'मैं दिल्ली में रहता हूँ।' },
+      { en: 'We live together.', hi: 'हम साथ रहते हैं।' }
+    ]},
+  ],
+  patterns: [
+    {
+      hi: 'मेरे / मेरी ___ ___ हैं।',
+      en: 'My ___ is/are ___.',
+      examples: [
+        { en: 'My father is a doctor.', hi: 'मेरे पिताजी डॉक्टर हैं।' },
+        { en: 'My mother is very kind.', hi: 'मेरी माँ बहुत दयालु हैं।' },
+        { en: 'My brother is tall.', hi: 'मेरा भाई लंबा है।' },
+        { en: 'My children are in school.', hi: 'मेरे बच्चे स्कूल में हैं।' },
+        { en: 'My wife is a teacher.', hi: 'मेरी पत्नी टीचर हैं।' },
+      ]
+    },
+    {
+      hi: 'मेरे ___ ___ हैं। (संख्या)',
+      en: 'I have ___ ___.',
+      examples: [
+        { en: 'I have two brothers.', hi: 'मेरे दो भाई हैं।' },
+        { en: 'I have one sister.', hi: 'मेरी एक बहन है।' },
+        { en: 'I have three children.', hi: 'मेरे तीन बच्चे हैं।' },
+        { en: 'I have a big family.', hi: 'मेरा बड़ा परिवार है।' },
+      ]
+    },
+  ],
+  conversations: [
+    {
+      title: 'परिवार के बारे में बातचीत — Talking About Family',
+      lines: [
+        { speaker: 'Neha', en: 'Hello Sita! How is your family?', hi: 'हेलो सीता! आपका परिवार कैसा है?' },
+        { speaker: 'Sita', en: 'My family is fine, thank you. How about yours?', hi: 'मेरा परिवार ठीक है, शुक्रिया। आपका?' },
+        { speaker: 'Neha', en: 'We are all good. How many children do you have?', hi: 'हम सब ठीक हैं। आपके कितने बच्चे हैं?' },
+        { speaker: 'Sita', en: 'I have two children. One son and one daughter.', hi: 'मेरे दो बच्चे हैं। एक बेटा और एक बेटी।' },
+        { speaker: 'Neha', en: 'That is nice! How old are they?', hi: 'बहुत अच्छा! वे कितने साल के हैं?' },
+        { speaker: 'Sita', en: 'My son is ten and my daughter is seven.', hi: 'मेरा बेटा दस साल का है और बेटी सात साल की।' },
+        { speaker: 'Neha', en: 'My daughter is also seven. They can be friends!', hi: 'मेरी बेटी भी सात साल की है। वे दोस्त बन सकती हैं!' },
+      ]
+    },
+    {
+      title: 'किसी को अपना परिवार बताना — Introducing Your Family',
+      lines: [
+        { speaker: 'Raj', en: 'Please come in. Welcome to my home.', hi: 'अंदर आइए। मेरे घर में आपका स्वागत है।' },
+        { speaker: 'Guest', en: 'Thank you, Raj.', hi: 'धन्यवाद, राज।' },
+        { speaker: 'Raj', en: 'This is my wife, Anita.', hi: 'ये मेरी पत्नी हैं, अनीता।' },
+        { speaker: 'Guest', en: 'Nice to meet you, Anita.', hi: 'आपसे मिलकर अच्छा लगा, अनीता।' },
+        { speaker: 'Raj', en: 'And this is my son, Rohit. He is in class 5.', hi: 'और ये मेरा बेटा है, रोहित। वह कक्षा 5 में है।' },
+        { speaker: 'Guest', en: 'Hello Rohit! You are a good boy.', hi: 'हेलो रोहित! तुम अच्छे बच्चे हो।' },
+        { speaker: 'Raj', en: 'My mother also lives with us. She is in the other room.', hi: 'मेरी माँ भी हमारे साथ रहती हैं। वे दूसरे कमरे में हैं।' },
+      ]
+    },
+  ],
+  exercises: [
+    {
+      type: 'हिंदी से अंग्रेज़ी — Translate to English',
+      questions: [
+        { q: 'मेरा परिवार बड़ा है।', a: 'My family is big.' },
+        { q: 'मेरे पिताजी टीचर हैं।', a: 'My father is a teacher.' },
+        { q: 'मेरे दो भाई हैं।', a: 'I have two brothers.' },
+        { q: 'मेरी बेटी स्कूल जाती है।', a: 'My daughter goes to school.' },
+        { q: 'मेरे पड़ोसी अच्छे हैं।', a: 'My neighbors are nice / good.' },
+        { q: 'मैं अपने परिवार से प्यार करता हूँ।', a: 'I love my family.' },
+        { q: 'मेरी माँ खाना बनाती हैं।', a: 'My mother cooks.' },
+        { q: 'हम दिल्ली में रहते हैं।', a: 'We live in Delhi.' },
+      ]
+    },
+    {
+      type: 'ख़ाली जगह भरें — Fill in the Blanks',
+      questions: [
+        { q: 'My ___ is a doctor.', hint: 'पिताजी', a: 'father' },
+        { q: 'I have two ___.', hint: 'बच्चे', a: 'children' },
+        { q: 'My ___ cooks very well.', hint: 'माँ', a: 'mother' },
+        { q: 'This is my ___, Anita.', hint: 'पत्नी', a: 'wife' },
+        { q: 'My ___ is in class 3.', hint: 'बेटा', a: 'son' },
+        { q: 'She is my best ___.', hint: 'दोस्त', a: 'friend' },
+        { q: 'My ___ lives in Pune.', hint: 'चाचा', a: 'uncle' },
+        { q: 'I ___ in Delhi.', hint: 'रहता हूँ', a: 'live' },
+      ]
+    },
+  ],
+  speaking: [
+    { en: 'My name is ___. I have a ___ family.', hi: 'मेरा नाम ___ है। मेरा ___ परिवार है।' },
+    { en: 'My father is a ___. My mother is a ___.', hi: 'मेरे पिताजी ___ हैं। मेरी माँ ___ हैं।' },
+    { en: 'I have ___ brothers and ___ sisters.', hi: 'मेरे ___ भाई और ___ बहनें हैं।' },
+    { en: 'My son is ___ years old. My daughter is ___ years old.', hi: 'मेरा बेटा ___ साल का है। मेरी बेटी ___ साल की है।' },
+    { en: 'I love my family very much.', hi: 'मैं अपने परिवार से बहुत प्यार करता/करती हूँ।' },
+  ],
+  challenge: 'अपने परिवार के बारे में 5 वाक्य अंग्रेज़ी में बोलें और लिखें:\n1. आपके परिवार में कितने लोग हैं? (I have a... family)\n2. अपने माता-पिता के बारे में बताएँ (My father/mother is...)\n3. अपने भाई-बहनों के बारे में बताएँ (I have... brothers/sisters)\n4. अपने बच्चों के बारे में बताएँ (My son/daughter is...)\n5. अपने परिवार को कहाँ रहते हैं (We live in...)',
+};
+
+// ===== DAY 3 =====
+COURSE[3] = {
+  day: 3, titleHi: 'गिनती — Numbers', titleEn: 'Numbers & Counting (1–100)',
+  goal: 'आज के बाद आप अंग्रेज़ी में 1 से 100 तक गिनती कर पाएँगे और संख्याओं का इस्तेमाल कर पाएँगे।',
+  words: [
+    { en: 'One', hi: 'एक (1)', pron: 'वन', ex: [{ en: 'I have one brother.', hi: 'मेरा एक भाई है।' }, { en: 'Give me one glass of water.', hi: 'मुझे एक गिलास पानी दो।' }]},
+    { en: 'Two', hi: 'दो (2)', pron: 'टू', ex: [{ en: 'I have two children.', hi: 'मेरे दो बच्चे हैं।' }, { en: 'Two cups of tea, please.', hi: 'दो कप चाय, प्लीज़।' }]},
+    { en: 'Three', hi: 'तीन (3)', pron: 'थ्री', ex: [{ en: 'There are three rooms in my house.', hi: 'मेरे घर में तीन कमरे हैं।' }, { en: 'I need three tickets.', hi: 'मुझे तीन टिकट चाहिए।' }]},
+    { en: 'Four', hi: 'चार (4)', pron: 'फ़ोर', ex: [{ en: 'We are four people.', hi: 'हम चार लोग हैं।' }, { en: 'The train comes at four o\'clock.', hi: 'ट्रेन चार बजे आती है।' }]},
+    { en: 'Five', hi: 'पाँच (5)', pron: 'फ़ाइव', ex: [{ en: 'My son is five years old.', hi: 'मेरा बेटा पाँच साल का है।' }, { en: 'Give me five minutes.', hi: 'मुझे पाँच मिनट दो।' }]},
+    { en: 'Ten', hi: 'दस (10)', pron: 'टेन', ex: [{ en: 'I have ten rupees.', hi: 'मेरे पास दस रुपये हैं।' }, { en: 'She is ten years old.', hi: 'वह दस साल की है।' }]},
+    { en: 'Twenty', hi: 'बीस (20)', pron: 'ट्वेंटी', ex: [{ en: 'This costs twenty rupees.', hi: 'इसकी क़ीमत बीस रुपये है।' }, { en: 'I waited twenty minutes.', hi: 'मैंने बीस मिनट इंतज़ार किया।' }]},
+    { en: 'Fifty', hi: 'पचास (50)', pron: 'फ़िफ़्टी', ex: [{ en: 'My father is fifty years old.', hi: 'मेरे पिताजी पचास साल के हैं।' }, { en: 'Fifty people came to the party.', hi: 'पार्टी में पचास लोग आए।' }]},
+    { en: 'Hundred', hi: 'सौ (100)', pron: 'हंड्रेड', ex: [{ en: 'I need hundred rupees.', hi: 'मुझे सौ रुपये चाहिए।' }, { en: 'There are hundred students in the school.', hi: 'स्कूल में सौ बच्चे हैं।' }]},
+    { en: 'Thousand', hi: 'हज़ार (1000)', pron: 'थाउज़ैंड', ex: [{ en: 'This phone costs ten thousand.', hi: 'इस फ़ोन की क़ीमत दस हज़ार है।' }, { en: 'One thousand people live here.', hi: 'यहाँ एक हज़ार लोग रहते हैं।' }]},
+    { en: 'How many', hi: 'कितने', pron: 'हाउ मेनी', ex: [{ en: 'How many brothers do you have?', hi: 'आपके कितने भाई हैं?' }, { en: 'How many people are coming?', hi: 'कितने लोग आ रहे हैं?' }]},
+    { en: 'How much', hi: 'कितना / कितने (क़ीमत)', pron: 'हाउ मच', ex: [{ en: 'How much does this cost?', hi: 'इसकी क़ीमत कितनी है?' }, { en: 'How much water do you need?', hi: 'आपको कितना पानी चाहिए?' }]},
+    { en: 'Count', hi: 'गिनना / गिनती', pron: 'काउंट', ex: [{ en: 'Please count the money.', hi: 'कृपया पैसे गिनिए।' }, { en: 'Can you count from one to ten?', hi: 'क्या आप एक से दस तक गिन सकते हैं?' }]},
+    { en: 'Number', hi: 'नंबर / संख्या', pron: 'नंबर', ex: [{ en: 'What is your phone number?', hi: 'आपका फ़ोन नंबर क्या है?' }, { en: 'Write the number here.', hi: 'यहाँ नंबर लिखिए।' }]},
+    { en: 'First', hi: 'पहला', pron: 'फ़र्स्ट', ex: [{ en: 'This is my first day.', hi: 'यह मेरा पहला दिन है।' }, { en: 'First, let us eat.', hi: 'पहले खाना खा लेते हैं।' }]},
+    { en: 'Second', hi: 'दूसरा', pron: 'सेकंड', ex: [{ en: 'This is the second floor.', hi: 'यह दूसरी मंज़िल है।' }, { en: 'Wait one second.', hi: 'एक सेकंड रुकिए।' }]},
+    { en: 'Last', hi: 'आख़िरी', pron: 'लास्ट', ex: [{ en: 'This is the last bus.', hi: 'यह आख़िरी बस है।' }, { en: 'Last month I went to Agra.', hi: 'पिछले महीने मैं आगरा गया।' }]},
+    { en: 'Half', hi: 'आधा', pron: 'हाफ़', ex: [{ en: 'Give me half a kilo.', hi: 'मुझे आधा किलो दो।' }, { en: 'It is half past two.', hi: 'ढाई बज रहे हैं।' }]},
+    { en: 'Zero', hi: 'शून्य / ज़ीरो', pron: 'ज़ीरो', ex: [{ en: 'The score is zero.', hi: 'स्कोर ज़ीरो है।' }, { en: 'Start from zero.', hi: 'शून्य से शुरू करो।' }]},
+    { en: 'Total', hi: 'कुल', pron: 'टोटल', ex: [{ en: 'What is the total?', hi: 'कुल कितना है?' }, { en: 'The total cost is five hundred rupees.', hi: 'कुल क़ीमत पाँच सौ रुपये है।' }]},
+  ],
+  patterns: [
+    {
+      hi: 'मेरे पास ___ ___ हैं।',
+      en: 'I have ___ ___.',
+      examples: [
+        { en: 'I have two phones.', hi: 'मेरे पास दो फ़ोन हैं।' },
+        { en: 'I have five hundred rupees.', hi: 'मेरे पास पाँच सौ रुपये हैं।' },
+        { en: 'I have three books.', hi: 'मेरे पास तीन किताबें हैं।' },
+        { en: 'I have one car.', hi: 'मेरे पास एक कार है।' },
+      ]
+    },
+    {
+      hi: 'इसकी क़ीमत ___ रुपये है।',
+      en: 'This costs ___ rupees.',
+      examples: [
+        { en: 'This costs fifty rupees.', hi: 'इसकी क़ीमत पचास रुपये है।' },
+        { en: 'This costs two hundred rupees.', hi: 'इसकी क़ीमत दो सौ रुपये है।' },
+        { en: 'This costs one thousand rupees.', hi: 'इसकी क़ीमत एक हज़ार रुपये है।' },
+      ]
+    },
+  ],
+  conversations: [
+    {
+      title: 'दुकान पर — At a Shop',
+      lines: [
+        { speaker: 'Customer', en: 'How much does this cost?', hi: 'इसकी क़ीमत कितनी है?' },
+        { speaker: 'Shopkeeper', en: 'This costs two hundred rupees.', hi: 'इसकी क़ीमत दो सौ रुपये है।' },
+        { speaker: 'Customer', en: 'That is too much! One hundred fifty?', hi: 'यह तो बहुत ज़्यादा है! डेढ़ सौ?' },
+        { speaker: 'Shopkeeper', en: 'OK, one hundred eighty. Last price.', hi: 'ठीक है, एक सौ अस्सी। आख़िरी दाम।' },
+        { speaker: 'Customer', en: 'OK. Here is two hundred. Give me twenty back.', hi: 'ठीक है। ये दो सौ। मुझे बीस वापस दो।' },
+      ]
+    },
+    {
+      title: 'फ़ोन नंबर पूछना — Asking for Phone Number',
+      lines: [
+        { speaker: 'Aman', en: 'What is your phone number?', hi: 'आपका फ़ोन नंबर क्या है?' },
+        { speaker: 'Ritu', en: 'My number is nine eight seven six five four three two one zero.', hi: 'मेरा नंबर है 9876543210।' },
+        { speaker: 'Aman', en: 'Can you say that again, please?', hi: 'क्या आप दोबारा बता सकती हैं?' },
+        { speaker: 'Ritu', en: 'Nine, eight, seven, six, five, four, three, two, one, zero.', hi: 'नौ, आठ, सात, छह, पाँच, चार, तीन, दो, एक, शून्य।' },
+        { speaker: 'Aman', en: 'Thank you!', hi: 'शुक्रिया!' },
+      ]
+    },
+  ],
+  exercises: [
+    {
+      type: 'अंग्रेज़ी में लिखें — Write in English',
+      questions: [
+        { q: '15 (पंद्रह)', a: 'Fifteen' },
+        { q: '30 (तीस)', a: 'Thirty' },
+        { q: '45 (पैंतालीस)', a: 'Forty-five' },
+        { q: '72 (बहत्तर)', a: 'Seventy-two' },
+        { q: '99 (निन्यानवे)', a: 'Ninety-nine' },
+        { q: '100 (सौ)', a: 'One hundred' },
+        { q: '250 (ढाई सौ)', a: 'Two hundred fifty' },
+        { q: '1000 (हज़ार)', a: 'One thousand' },
+      ]
+    },
+    {
+      type: 'हिंदी से अंग्रेज़ी — Translate',
+      questions: [
+        { q: 'इसकी क़ीमत कितनी है?', a: 'How much does this cost?' },
+        { q: 'मेरे पास पाँच सौ रुपये हैं।', a: 'I have five hundred rupees.' },
+        { q: 'आपका फ़ोन नंबर क्या है?', a: 'What is your phone number?' },
+        { q: 'कुल कितना है?', a: 'What is the total?' },
+        { q: 'यह मेरा पहला दिन है।', a: 'This is my first day.' },
+        { q: 'मुझे आधा किलो चीनी दो।', a: 'Give me half a kilo of sugar.' },
+      ]
+    },
+  ],
+  speaking: [
+    { en: 'One, two, three, four, five, six, seven, eight, nine, ten.', hi: 'एक से दस तक ज़ोर से बोलें।' },
+    { en: 'Eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty.', hi: 'ग्यारह से बीस तक ज़ोर से बोलें।' },
+    { en: 'Ten, twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety, hundred.', hi: 'दस-दस करके सौ तक बोलें।' },
+    { en: 'My phone number is ___.', hi: 'अपना फ़ोन नंबर अंग्रेज़ी में बोलें।' },
+    { en: 'I am ___ years old.', hi: 'अपनी उम्र अंग्रेज़ी में बताएँ।' },
+  ],
+  challenge: 'इन सवालों के जवाब अंग्रेज़ी में बोलें और लिखें:\n1. आपकी उम्र कितनी है? (I am ___ years old)\n2. आपके घर में कितने कमरे हैं? (My house has ___ rooms)\n3. आपका फ़ोन नंबर क्या है? (My phone number is...)\n4. कोई चीज़ की क़ीमत बताएँ (This costs ___ rupees)\n5. एक से बीस तक गिनती बोलें',
+};
+
+// ===== DAY 4 =====
+COURSE[4] = {
+  day: 4, titleHi: 'समय और दिन', titleEn: 'Days, Months & Telling Time',
+  goal: 'आज के बाद आप अंग्रेज़ी में समय, दिन, और महीने बता पाएँगे।',
+  words: [
+    { en: 'Today', hi: 'आज', pron: 'टुडे', ex: [{ en: 'Today is Monday.', hi: 'आज सोमवार है।' }, { en: 'What is today\'s date?', hi: 'आज की तारीख़ क्या है?' }]},
+    { en: 'Tomorrow', hi: 'कल (आने वाला)', pron: 'टुमॉरो', ex: [{ en: 'I will come tomorrow.', hi: 'मैं कल आऊँगा।' }, { en: 'Tomorrow is a holiday.', hi: 'कल छुट्टी है।' }]},
+    { en: 'Yesterday', hi: 'कल (बीता हुआ)', pron: 'यस्टरडे', ex: [{ en: 'Yesterday was Sunday.', hi: 'कल रविवार था।' }, { en: 'I went to the market yesterday.', hi: 'मैं कल बाज़ार गया।' }]},
+    { en: 'Morning', hi: 'सुबह', pron: 'मॉर्निंग', ex: [{ en: 'I wake up early in the morning.', hi: 'मैं सुबह जल्दी उठता हूँ।' }, { en: 'Good morning!', hi: 'सुप्रभात!' }]},
+    { en: 'Afternoon', hi: 'दोपहर', pron: 'आफ़्टरनून', ex: [{ en: 'I eat lunch in the afternoon.', hi: 'मैं दोपहर में खाना खाता हूँ।' }, { en: 'The meeting is in the afternoon.', hi: 'मीटिंग दोपहर में है।' }]},
+    { en: 'Evening', hi: 'शाम', pron: 'ईवनिंग', ex: [{ en: 'I go for a walk in the evening.', hi: 'मैं शाम को टहलने जाता हूँ।' }, { en: 'Good evening!', hi: 'शुभ संध्या!' }]},
+    { en: 'Night', hi: 'रात', pron: 'नाइट', ex: [{ en: 'I sleep at ten at night.', hi: 'मैं रात दस बजे सोता हूँ।' }, { en: 'Good night!', hi: 'शुभ रात्रि!' }]},
+    { en: 'Day', hi: 'दिन', pron: 'डे', ex: [{ en: 'What day is today?', hi: 'आज कौनसा दिन है?' }, { en: 'Have a good day!', hi: 'आपका दिन अच्छा हो!' }]},
+    { en: 'Week', hi: 'हफ़्ता', pron: 'वीक', ex: [{ en: 'There are seven days in a week.', hi: 'एक हफ़्ते में सात दिन होते हैं।' }, { en: 'See you next week.', hi: 'अगले हफ़्ते मिलते हैं।' }]},
+    { en: 'Month', hi: 'महीना', pron: 'मंथ', ex: [{ en: 'This month is January.', hi: 'यह महीना जनवरी है।' }, { en: 'I will come next month.', hi: 'मैं अगले महीने आऊँगा।' }]},
+    { en: 'Year', hi: 'साल', pron: 'यीयर', ex: [{ en: 'Happy New Year!', hi: 'नया साल मुबारक!' }, { en: 'I am thirty years old.', hi: 'मेरी उम्र तीस साल है।' }]},
+    { en: 'Monday', hi: 'सोमवार', pron: 'मंडे', ex: [{ en: 'Monday is the first working day.', hi: 'सोमवार पहला कार्य दिवस है।' }, { en: 'I go to office on Monday.', hi: 'मैं सोमवार को ऑफ़िस जाता हूँ।' }]},
+    { en: 'Sunday', hi: 'रविवार', pron: 'संडे', ex: [{ en: 'Sunday is a holiday.', hi: 'रविवार को छुट्टी है।' }, { en: 'I rest on Sunday.', hi: 'मैं रविवार को आराम करता हूँ।' }]},
+    { en: 'Hour', hi: 'घंटा', pron: 'आवर', ex: [{ en: 'I will come in one hour.', hi: 'मैं एक घंटे में आऊँगा।' }, { en: 'The journey takes two hours.', hi: 'यात्रा में दो घंटे लगते हैं।' }]},
+    { en: 'Minute', hi: 'मिनट', pron: 'मिनट', ex: [{ en: 'Wait five minutes.', hi: 'पाँच मिनट रुकिए।' }, { en: 'I need ten minutes.', hi: 'मुझे दस मिनट चाहिए।' }]},
+    { en: 'Clock / Time', hi: 'घड़ी / समय', pron: 'क्लॉक / टाइम', ex: [{ en: 'What time is it?', hi: 'कितने बजे हैं?' }, { en: 'Look at the clock.', hi: 'घड़ी देखो।' }]},
+    { en: 'Early', hi: 'जल्दी', pron: 'अर्ली', ex: [{ en: 'I wake up early.', hi: 'मैं जल्दी उठता हूँ।' }, { en: 'You are early today.', hi: 'आप आज जल्दी आ गए।' }]},
+    { en: 'Late', hi: 'देर से', pron: 'लेट', ex: [{ en: 'Sorry, I am late.', hi: 'माफ़ कीजिए, मुझे देर हो गई।' }, { en: 'Don\'t be late.', hi: 'देर मत करो।' }]},
+    { en: 'Now', hi: 'अभी', pron: 'नाउ', ex: [{ en: 'I am busy now.', hi: 'मैं अभी व्यस्त हूँ।' }, { en: 'Come now!', hi: 'अभी आओ!' }]},
+    { en: 'Later', hi: 'बाद में', pron: 'लेटर', ex: [{ en: 'I will call you later.', hi: 'मैं आपको बाद में फ़ोन करूँगा।' }, { en: 'See you later!', hi: 'बाद में मिलते हैं!' }]},
+  ],
+  patterns: [
+    {
+      hi: 'अभी ___ बज रहे हैं।',
+      en: 'It is ___ o\'clock.',
+      examples: [
+        { en: 'It is three o\'clock.', hi: 'अभी तीन बज रहे हैं।' },
+        { en: 'It is ten o\'clock in the morning.', hi: 'सुबह के दस बज रहे हैं।' },
+        { en: 'It is eight o\'clock at night.', hi: 'रात के आठ बज रहे हैं।' },
+        { en: 'It is half past five.', hi: 'साढ़े पाँच बज रहे हैं।' },
+      ]
+    },
+    {
+      hi: 'मैं ___ को ___ जाता/जाती हूँ।',
+      en: 'I go to ___ on ___.',
+      examples: [
+        { en: 'I go to office on Monday.', hi: 'मैं सोमवार को ऑफ़िस जाता हूँ।' },
+        { en: 'I go to temple on Sunday.', hi: 'मैं रविवार को मंदिर जाता हूँ।' },
+        { en: 'I go to the market on Saturday.', hi: 'मैं शनिवार को बाज़ार जाता हूँ।' },
+      ]
+    },
+  ],
+  conversations: [
+    {
+      title: 'समय पूछना — Asking the Time',
+      lines: [
+        { speaker: 'Rina', en: 'Excuse me, what time is it?', hi: 'माफ़ कीजिए, कितने बजे हैं?' },
+        { speaker: 'Man', en: 'It is half past three.', hi: 'साढ़े तीन बजे हैं।' },
+        { speaker: 'Rina', en: 'Thank you! I am late for my meeting.', hi: 'शुक्रिया! मुझे मीटिंग के लिए देर हो रही है।' },
+        { speaker: 'Man', en: 'No problem. Have a good day!', hi: 'कोई बात नहीं। आपका दिन अच्छा हो!' },
+      ]
+    },
+    {
+      title: 'प्लान बनाना — Making Plans',
+      lines: [
+        { speaker: 'Seema', en: 'What day is today?', hi: 'आज कौनसा दिन है?' },
+        { speaker: 'Pooja', en: 'Today is Wednesday.', hi: 'आज बुधवार है।' },
+        { speaker: 'Seema', en: 'OK. I will come to your house on Saturday.', hi: 'ठीक है। मैं शनिवार को आपके घर आऊँगी।' },
+        { speaker: 'Pooja', en: 'What time will you come?', hi: 'आप कितने बजे आएँगी?' },
+        { speaker: 'Seema', en: 'I will come at four o\'clock in the evening.', hi: 'मैं शाम चार बजे आऊँगी।' },
+        { speaker: 'Pooja', en: 'OK, see you on Saturday!', hi: 'ठीक है, शनिवार को मिलते हैं!' },
+      ]
+    },
+  ],
+  exercises: [
+    {
+      type: 'अंग्रेज़ी में लिखें — Write in English',
+      questions: [
+        { q: 'सोमवार', a: 'Monday' },
+        { q: 'मंगलवार', a: 'Tuesday' },
+        { q: 'बुधवार', a: 'Wednesday' },
+        { q: 'गुरुवार', a: 'Thursday' },
+        { q: 'शुक्रवार', a: 'Friday' },
+        { q: 'शनिवार', a: 'Saturday' },
+        { q: 'रविवार', a: 'Sunday' },
+      ]
+    },
+    {
+      type: 'हिंदी से अंग्रेज़ी — Translate',
+      questions: [
+        { q: 'आज सोमवार है।', a: 'Today is Monday.' },
+        { q: 'कितने बजे हैं?', a: 'What time is it?' },
+        { q: 'मैं कल आऊँगा।', a: 'I will come tomorrow.' },
+        { q: 'मुझे देर हो गई, माफ़ कीजिए।', a: 'I am late, sorry.' },
+        { q: 'मैं सुबह जल्दी उठता हूँ।', a: 'I wake up early in the morning.' },
+        { q: 'बाद में मिलते हैं!', a: 'See you later!' },
+      ]
+    },
+  ],
+  speaking: [
+    { en: 'Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.', hi: 'सभी दिनों के नाम ज़ोर से बोलें।' },
+    { en: 'January, February, March, April, May, June, July, August, September, October, November, December.', hi: 'सभी महीनों के नाम ज़ोर से बोलें।' },
+    { en: 'Today is ___. Tomorrow is ___. Yesterday was ___.', hi: 'आज, कल और बीता कल बताएँ।' },
+    { en: 'It is ___ o\'clock now.', hi: 'अभी कितने बजे हैं, अंग्रेज़ी में बताएँ।' },
+    { en: 'I wake up at ___ in the morning.', hi: 'आप सुबह कितने बजे उठते हैं, बताएँ।' },
+  ],
+  challenge: 'अपने दिन के बारे में 5 वाक्य अंग्रेज़ी में बोलें:\n1. आज कौनसा दिन है? (Today is...)\n2. अभी कितने बजे हैं? (It is... o\'clock)\n3. आप सुबह कितने बजे उठते हैं? (I wake up at...)\n4. आप कल क्या करेंगे? (Tomorrow I will...)\n5. आप शनिवार को क्या करते हैं? (On Saturday I...)',
+};
+
+// ===== DAY 5 =====
+COURSE[5] = {
+  day: 5, titleHi: 'रंग और साइज़', titleEn: 'Colors, Sizes & Describing Things',
+  goal: 'आज के बाद आप चीज़ों का रंग, साइज़ और शक्ल अंग्रेज़ी में बता पाएँगे।',
+  words: [
+    { en: 'Red', hi: 'लाल', pron: 'रेड', ex: [{ en: 'This flower is red.', hi: 'यह फूल लाल है।' }, { en: 'I like red color.', hi: 'मुझे लाल रंग पसंद है।' }]},
+    { en: 'Blue', hi: 'नीला', pron: 'ब्लू', ex: [{ en: 'The sky is blue.', hi: 'आसमान नीला है।' }, { en: 'Give me the blue shirt.', hi: 'मुझे नीली शर्ट दो।' }]},
+    { en: 'Green', hi: 'हरा', pron: 'ग्रीन', ex: [{ en: 'The trees are green.', hi: 'पेड़ हरे हैं।' }, { en: 'I want the green bag.', hi: 'मुझे हरा बैग चाहिए।' }]},
+    { en: 'Yellow', hi: 'पीला', pron: 'येलो', ex: [{ en: 'The sun is yellow.', hi: 'सूरज पीला है।' }, { en: 'She is wearing a yellow saree.', hi: 'उसने पीली साड़ी पहनी है।' }]},
+    { en: 'White', hi: 'सफ़ेद', pron: 'वाइट', ex: [{ en: 'The wall is white.', hi: 'दीवार सफ़ेद है।' }, { en: 'He is wearing a white kurta.', hi: 'उसने सफ़ेद कुर्ता पहना है।' }]},
+    { en: 'Black', hi: 'काला', pron: 'ब्लैक', ex: [{ en: 'My car is black.', hi: 'मेरी कार काली है।' }, { en: 'She has black hair.', hi: 'उसके बाल काले हैं।' }]},
+    { en: 'Pink', hi: 'गुलाबी', pron: 'पिंक', ex: [{ en: 'The rose is pink.', hi: 'गुलाब गुलाबी है।' }, { en: 'My daughter likes pink.', hi: 'मेरी बेटी को गुलाबी रंग पसंद है।' }]},
+    { en: 'Orange', hi: 'नारंगी', pron: 'ऑरेंज', ex: [{ en: 'I ate an orange.', hi: 'मैंने एक संतरा खाया।' }, { en: 'The sunset is orange.', hi: 'सूर्यास्त नारंगी रंग का है।' }]},
+    { en: 'Big', hi: 'बड़ा', pron: 'बिग', ex: [{ en: 'This house is very big.', hi: 'यह घर बहुत बड़ा है।' }, { en: 'I need a big bag.', hi: 'मुझे बड़ा बैग चाहिए।' }]},
+    { en: 'Small', hi: 'छोटा', pron: 'स्मॉल', ex: [{ en: 'This room is small.', hi: 'यह कमरा छोटा है।' }, { en: 'Give me a small size.', hi: 'मुझे छोटा साइज़ दो।' }]},
+    { en: 'Long', hi: 'लंबा (लंबाई)', pron: 'लॉन्ग', ex: [{ en: 'This road is very long.', hi: 'यह रास्ता बहुत लंबा है।' }, { en: 'She has long hair.', hi: 'उसके लंबे बाल हैं।' }]},
+    { en: 'Short', hi: 'छोटा / नाटा', pron: 'शॉर्ट', ex: [{ en: 'The boy is short.', hi: 'लड़का नाटा है।' }, { en: 'I want a short break.', hi: 'मुझे थोड़ा ब्रेक चाहिए।' }]},
+    { en: 'New', hi: 'नया', pron: 'न्यू', ex: [{ en: 'I bought a new phone.', hi: 'मैंने नया फ़ोन ख़रीदा।' }, { en: 'This is a new shop.', hi: 'यह नई दुकान है।' }]},
+    { en: 'Old', hi: 'पुराना / बूढ़ा', pron: 'ओल्ड', ex: [{ en: 'This is an old building.', hi: 'यह पुरानी इमारत है।' }, { en: 'My grandfather is old.', hi: 'मेरे दादाजी बूढ़े हैं।' }]},
+    { en: 'Beautiful', hi: 'सुंदर / ख़ूबसूरत', pron: 'ब्यूटिफ़ुल', ex: [{ en: 'This place is very beautiful.', hi: 'यह जगह बहुत सुंदर है।' }, { en: 'What a beautiful flower!', hi: 'कितना सुंदर फूल है!' }]},
+    { en: 'Clean', hi: 'साफ़', pron: 'क्लीन', ex: [{ en: 'This room is very clean.', hi: 'यह कमरा बहुत साफ़ है।' }, { en: 'Please keep it clean.', hi: 'कृपया इसे साफ़ रखें।' }]},
+    { en: 'Dirty', hi: 'गंदा', pron: 'डर्टी', ex: [{ en: 'The road is very dirty.', hi: 'सड़क बहुत गंदी है।' }, { en: 'Your clothes are dirty.', hi: 'तुम्हारे कपड़े गंदे हैं।' }]},
+    { en: 'Good', hi: 'अच्छा', pron: 'गुड', ex: [{ en: 'This food is very good.', hi: 'यह खाना बहुत अच्छा है।' }, { en: 'You are a good person.', hi: 'आप अच्छे इंसान हैं।' }]},
+    { en: 'Bad', hi: 'बुरा / ख़राब', pron: 'बैड', ex: [{ en: 'The weather is bad today.', hi: 'आज मौसम ख़राब है।' }, { en: 'This is a bad idea.', hi: 'यह बुरा विचार है।' }]},
+    { en: 'Color', hi: 'रंग', pron: 'कलर', ex: [{ en: 'What color do you like?', hi: 'आपको कौनसा रंग पसंद है?' }, { en: 'This color is nice.', hi: 'यह रंग अच्छा है।' }]},
+  ],
+  patterns: [
+    {
+      hi: 'यह ___ ___ है।',
+      en: 'This is ___ (adjective) ___.',
+      examples: [
+        { en: 'This is a big house.', hi: 'यह बड़ा घर है।' },
+        { en: 'This is a red flower.', hi: 'यह लाल फूल है।' },
+        { en: 'This is a new phone.', hi: 'यह नया फ़ोन है।' },
+        { en: 'This is a beautiful place.', hi: 'यह सुंदर जगह है।' },
+        { en: 'This is a clean room.', hi: 'यह साफ़ कमरा है।' },
+      ]
+    },
+    {
+      hi: '___ बहुत ___ है।',
+      en: '___ is very ___.',
+      examples: [
+        { en: 'The sky is very blue.', hi: 'आसमान बहुत नीला है।' },
+        { en: 'This bag is very big.', hi: 'यह बैग बहुत बड़ा है।' },
+        { en: 'My house is very small.', hi: 'मेरा घर बहुत छोटा है।' },
+        { en: 'The food is very good.', hi: 'खाना बहुत अच्छा है।' },
+      ]
+    },
+  ],
+  conversations: [
+    {
+      title: 'कपड़ों की दुकान पर — At a Clothes Shop',
+      lines: [
+        { speaker: 'Customer', en: 'I want a blue shirt.', hi: 'मुझे नीली शर्ट चाहिए।' },
+        { speaker: 'Shopkeeper', en: 'What size? Big, medium, or small?', hi: 'कौनसा साइज़? बड़ा, मीडियम, या छोटा?' },
+        { speaker: 'Customer', en: 'Medium size. Do you have it in green also?', hi: 'मीडियम साइज़। क्या यह हरे रंग में भी है?' },
+        { speaker: 'Shopkeeper', en: 'Yes, we have green, blue, and white.', hi: 'हाँ, हमारे पास हरा, नीला, और सफ़ेद है।' },
+        { speaker: 'Customer', en: 'Show me the green one. It is very beautiful!', hi: 'हरा वाला दिखाइए। यह बहुत सुंदर है!' },
+        { speaker: 'Shopkeeper', en: 'This is a new design. Very good quality.', hi: 'यह नया डिज़ाइन है। बहुत अच्छी क्वालिटी।' },
+      ]
+    },
+  ],
+  exercises: [
+    {
+      type: 'ख़ाली जगह भरें — Fill in the Blanks',
+      questions: [
+        { q: 'The sky is ___.', hint: 'नीला', a: 'blue' },
+        { q: 'This house is very ___.', hint: 'बड़ा', a: 'big' },
+        { q: 'The rose is ___.', hint: 'गुलाबी', a: 'pink' },
+        { q: 'I bought a ___ phone.', hint: 'नया', a: 'new' },
+        { q: 'This room is very ___.', hint: 'साफ़', a: 'clean' },
+        { q: 'She has ___ hair.', hint: 'लंबे', a: 'long' },
+        { q: 'The road is ___.', hint: 'गंदा', a: 'dirty' },
+        { q: 'What ___ do you like?', hint: 'रंग', a: 'color' },
+      ]
+    },
+    {
+      type: 'हिंदी से अंग्रेज़ी — Translate',
+      questions: [
+        { q: 'यह फूल लाल है।', a: 'This flower is red.' },
+        { q: 'मेरी कार काली है।', a: 'My car is black.' },
+        { q: 'यह जगह बहुत सुंदर है।', a: 'This place is very beautiful.' },
+        { q: 'मुझे छोटा साइज़ चाहिए।', a: 'I need a small size.' },
+        { q: 'आपको कौनसा रंग पसंद है?', a: 'What color do you like?' },
+        { q: 'आज मौसम ख़राब है।', a: 'The weather is bad today.' },
+      ]
+    },
+  ],
+  speaking: [
+    { en: 'Red, blue, green, yellow, white, black, pink, orange.', hi: 'सभी रंगों के नाम ज़ोर से बोलें।' },
+    { en: 'This ___ is ___ (color).', hi: 'अपने आसपास की 5 चीज़ों का रंग बताएँ।' },
+    { en: 'I like ___ color.', hi: 'अपना पसंदीदा रंग बताएँ।' },
+    { en: 'My house is ___ and ___.', hi: 'अपने घर के बारे में दो विशेषण बताएँ।' },
+  ],
+  challenge: '5 चीज़ों का वर्णन अंग्रेज़ी में करें:\n1. अपने कपड़ों का रंग बताएँ (I am wearing a ___ shirt)\n2. अपने घर के बारे में बताएँ (My house is...)\n3. अपनी पसंदीदा चीज़ बताएँ (My favorite color is...)\n4. कोई ख़ूबसूरत चीज़ बताएँ (... is very beautiful)\n5. कोई नई चीज़ बताएँ (I have a new...)',
+};
+
+// ===== DAY 6 =====
+COURSE[6] = {
+  day: 6, titleHi: 'खाना-पीना', titleEn: 'Food & Drinks',
+  goal: 'आज के बाद आप खाने-पीने से जुड़ी बातें अंग्रेज़ी में कर पाएँगे।',
+  words: [
+    { en: 'Water', hi: 'पानी', pron: 'वॉटर', ex: [{ en: 'Please give me water.', hi: 'कृपया मुझे पानी दीजिए।' }, { en: 'I am drinking water.', hi: 'मैं पानी पी रहा हूँ।' }]},
+    { en: 'Tea', hi: 'चाय', pron: 'टी', ex: [{ en: 'Do you want tea?', hi: 'क्या आपको चाय चाहिए?' }, { en: 'Two cups of tea, please.', hi: 'दो कप चाय, प्लीज़।' }]},
+    { en: 'Coffee', hi: 'कॉफ़ी', pron: 'कॉफ़ी', ex: [{ en: 'I drink coffee every morning.', hi: 'मैं हर सुबह कॉफ़ी पीता हूँ।' }, { en: 'This coffee is very good.', hi: 'यह कॉफ़ी बहुत अच्छी है।' }]},
+    { en: 'Milk', hi: 'दूध', pron: 'मिल्क', ex: [{ en: 'Children need milk every day.', hi: 'बच्चों को हर दिन दूध चाहिए।' }, { en: 'I want tea with milk.', hi: 'मुझे दूध वाली चाय चाहिए।' }]},
+    { en: 'Rice', hi: 'चावल', pron: 'राइस', ex: [{ en: 'I eat rice for lunch.', hi: 'मैं दोपहर में चावल खाता हूँ।' }, { en: 'Do you want more rice?', hi: 'क्या आपको और चावल चाहिए?' }]},
+    { en: 'Bread / Roti', hi: 'रोटी / ब्रेड', pron: 'ब्रेड / रोटी', ex: [{ en: 'I eat roti with dal.', hi: 'मैं दाल के साथ रोटी खाता हूँ।' }, { en: 'Please make four rotis.', hi: 'कृपया चार रोटी बनाइए।' }]},
+    { en: 'Vegetable', hi: 'सब्ज़ी', pron: 'वेजिटेबल', ex: [{ en: 'Eat your vegetables.', hi: 'अपनी सब्ज़ी खाओ।' }, { en: 'I bought fresh vegetables.', hi: 'मैंने ताज़ी सब्ज़ियाँ ख़रीदीं।' }]},
+    { en: 'Fruit', hi: 'फल', pron: 'फ़्रूट', ex: [{ en: 'I eat fruits every day.', hi: 'मैं हर दिन फल खाता हूँ।' }, { en: 'Mango is my favorite fruit.', hi: 'आम मेरा पसंदीदा फल है।' }]},
+    { en: 'Egg', hi: 'अंडा', pron: 'एग', ex: [{ en: 'I had two eggs for breakfast.', hi: 'मैंने नाश्ते में दो अंडे खाए।' }, { en: 'Do you eat eggs?', hi: 'क्या आप अंडे खाते हैं?' }]},
+    { en: 'Sugar', hi: 'चीनी', pron: 'शुगर', ex: [{ en: 'Less sugar in my tea, please.', hi: 'मेरी चाय में कम चीनी, प्लीज़।' }, { en: 'Too much sugar is bad.', hi: 'ज़्यादा चीनी ख़राब है।' }]},
+    { en: 'Hungry', hi: 'भूखा', pron: 'हंग्री', ex: [{ en: 'I am very hungry.', hi: 'मुझे बहुत भूख लगी है।' }, { en: 'Are you hungry?', hi: 'क्या आपको भूख लगी है?' }]},
+    { en: 'Thirsty', hi: 'प्यासा', pron: 'थर्स्टी', ex: [{ en: 'I am thirsty.', hi: 'मुझे प्यास लगी है।' }, { en: 'The children are thirsty.', hi: 'बच्चों को प्यास लगी है।' }]},
+    { en: 'Eat', hi: 'खाना', pron: 'ईट', ex: [{ en: 'What do you want to eat?', hi: 'आप क्या खाना चाहते हैं?' }, { en: 'I eat lunch at one o\'clock.', hi: 'मैं एक बजे दोपहर का खाना खाता हूँ।' }]},
+    { en: 'Drink', hi: 'पीना', pron: 'ड्रिंक', ex: [{ en: 'What do you want to drink?', hi: 'आप क्या पीना चाहते हैं?' }, { en: 'I drink a lot of water.', hi: 'मैं बहुत पानी पीता हूँ।' }]},
+    { en: 'Cook', hi: 'खाना बनाना', pron: 'कुक', ex: [{ en: 'My mother cooks very well.', hi: 'मेरी माँ बहुत अच्छा खाना बनाती हैं।' }, { en: 'I am learning to cook.', hi: 'मैं खाना बनाना सीख रहा हूँ।' }]},
+    { en: 'Hot', hi: 'गर्म', pron: 'हॉट', ex: [{ en: 'The tea is very hot.', hi: 'चाय बहुत गर्म है।' }, { en: 'I want hot food.', hi: 'मुझे गर्म खाना चाहिए।' }]},
+    { en: 'Cold', hi: 'ठंडा', pron: 'कोल्ड', ex: [{ en: 'Give me cold water.', hi: 'मुझे ठंडा पानी दो।' }, { en: 'The weather is cold today.', hi: 'आज मौसम ठंडा है।' }]},
+    { en: 'Sweet', hi: 'मीठा', pron: 'स्वीट', ex: [{ en: 'This mango is very sweet.', hi: 'यह आम बहुत मीठा है।' }, { en: 'I don\'t like sweet food.', hi: 'मुझे मीठा खाना पसंद नहीं है।' }]},
+    { en: 'Spicy', hi: 'तीखा / मसालेदार', pron: 'स्पाइसी', ex: [{ en: 'This curry is too spicy.', hi: 'यह करी बहुत तीखी है।' }, { en: 'I like spicy food.', hi: 'मुझे तीखा खाना पसंद है।' }]},
+    { en: 'Delicious', hi: 'स्वादिष्ट', pron: 'डिलीशस', ex: [{ en: 'The food is delicious!', hi: 'खाना स्वादिष्ट है!' }, { en: 'Your cooking is delicious.', hi: 'आपका खाना बहुत स्वादिष्ट है।' }]},
+  ],
+  patterns: [
+    {
+      hi: 'मुझे ___ चाहिए।',
+      en: 'I want ___. / Give me ___.',
+      examples: [
+        { en: 'I want tea.', hi: 'मुझे चाय चाहिए।' },
+        { en: 'Give me cold water.', hi: 'मुझे ठंडा पानी दो।' },
+        { en: 'I want two rotis.', hi: 'मुझे दो रोटी चाहिए।' },
+        { en: 'I want hot coffee.', hi: 'मुझे गर्म कॉफ़ी चाहिए।' },
+      ]
+    },
+    {
+      hi: 'क्या आपको ___ पसंद है?',
+      en: 'Do you like ___?',
+      examples: [
+        { en: 'Do you like tea or coffee?', hi: 'आपको चाय पसंद है या कॉफ़ी?' },
+        { en: 'Do you like spicy food?', hi: 'क्या आपको तीखा खाना पसंद है?' },
+        { en: 'Do you like mangoes?', hi: 'क्या आपको आम पसंद हैं?' },
+        { en: 'I like sweet food.', hi: 'मुझे मीठा खाना पसंद है।' },
+      ]
+    },
+  ],
+  conversations: [
+    {
+      title: 'खाने का ऑर्डर — Ordering Food',
+      lines: [
+        { speaker: 'Waiter', en: 'Welcome! What would you like to eat?', hi: 'स्वागत है! आप क्या खाना चाहेंगे?' },
+        { speaker: 'Anita', en: 'I want dal, rice, and two rotis.', hi: 'मुझे दाल, चावल, और दो रोटी चाहिए।' },
+        { speaker: 'Waiter', en: 'OK. What would you like to drink?', hi: 'ठीक है। पीने के लिए क्या चाहिए?' },
+        { speaker: 'Anita', en: 'One glass of cold water, please.', hi: 'एक गिलास ठंडा पानी, प्लीज़।' },
+        { speaker: 'Waiter', en: 'Do you want anything else?', hi: 'और कुछ चाहिए?' },
+        { speaker: 'Anita', en: 'No, that is enough. Thank you.', hi: 'नहीं, इतना काफ़ी है। शुक्रिया।' },
+      ]
+    },
+    {
+      title: 'घर पर मेहमान — Guest at Home',
+      lines: [
+        { speaker: 'Host', en: 'Please come in! Sit down. Would you like tea or coffee?', hi: 'अंदर आइए! बैठिए। चाय लेंगे या कॉफ़ी?' },
+        { speaker: 'Guest', en: 'Tea, please. With less sugar.', hi: 'चाय, प्लीज़। कम चीनी के साथ।' },
+        { speaker: 'Host', en: 'OK. Are you hungry? I will make some snacks.', hi: 'ठीक है। क्या आपको भूख लगी है? मैं नाश्ता बनाती हूँ।' },
+        { speaker: 'Guest', en: 'No, just tea is fine. Thank you.', hi: 'नहीं, बस चाय ठीक है। शुक्रिया।' },
+        { speaker: 'Host', en: 'Here is your tea. It is hot, be careful.', hi: 'ये आपकी चाय। गर्म है, ध्यान से।' },
+        { speaker: 'Guest', en: 'Thank you! The tea is very delicious.', hi: 'शुक्रिया! चाय बहुत स्वादिष्ट है।' },
+      ]
+    },
+  ],
+  exercises: [
+    {
+      type: 'हिंदी से अंग्रेज़ी — Translate',
+      questions: [
+        { q: 'मुझे भूख लगी है।', a: 'I am hungry.' },
+        { q: 'मुझे ठंडा पानी चाहिए।', a: 'I want cold water.' },
+        { q: 'खाना बहुत स्वादिष्ट है।', a: 'The food is very delicious.' },
+        { q: 'क्या आपको चाय चाहिए?', a: 'Do you want tea?' },
+        { q: 'मेरी माँ अच्छा खाना बनाती हैं।', a: 'My mother cooks good food.' },
+        { q: 'यह करी बहुत तीखी है।', a: 'This curry is too spicy.' },
+        { q: 'मुझे प्यास लगी है।', a: 'I am thirsty.' },
+        { q: 'मुझे मीठा पसंद नहीं है।', a: 'I don\'t like sweet food.' },
+      ]
+    },
+    {
+      type: 'ख़ाली जगह भरें — Fill in the Blanks',
+      questions: [
+        { q: 'I am very ___. I want to eat.', hint: 'भूखा', a: 'hungry' },
+        { q: 'Please give me ___.', hint: 'पानी', a: 'water' },
+        { q: 'The tea is too ___.', hint: 'गर्म', a: 'hot' },
+        { q: 'I like ___ food.', hint: 'तीखा', a: 'spicy' },
+        { q: 'This mango is very ___.', hint: 'मीठा', a: 'sweet' },
+        { q: 'My mother ___ very well.', hint: 'खाना बनाती हैं', a: 'cooks' },
+      ]
+    },
+  ],
+  speaking: [
+    { en: 'I am hungry. I want to eat ___.', hi: 'बताएँ आपको भूख लगी है और क्या खाना है।' },
+    { en: 'I like ___ and ___. I don\'t like ___.', hi: 'अपनी पसंद-नापसंद बताएँ।' },
+    { en: 'Two cups of tea with less sugar, please.', hi: 'चाय का ऑर्डर दें।' },
+    { en: 'The food is very delicious. Thank you.', hi: 'खाने की तारीफ़ करें।' },
+  ],
+  challenge: 'खाने-पीने के बारे में 5 वाक्य अंग्रेज़ी में बोलें:\n1. आपको क्या खाना पसंद है? (I like...)\n2. आपको क्या पसंद नहीं है? (I don\'t like...)\n3. आज आपने नाश्ते में क्या खाया? (I had... for breakfast)\n4. आपकी माँ/पत्नी क्या अच्छा बनाती हैं? (My... cooks good...)\n5. किसी को चाय/कॉफ़ी ऑफ़र करें (Would you like tea or coffee?)',
+};
+
+// ===== DAY 7 (Revision) =====
+COURSE[7] = {
+  day: 7, titleHi: 'हफ़्ते का दोहराव', titleEn: 'Week 1 — Revision & Mini Test',
+  goal: 'आज हम पूरे हफ़्ते की सीखी हुई चीज़ें दोहराएँगे और टेस्ट देंगे। कोई नया शब्द नहीं!',
+  isRevision: true,
+  words: [],
+  patterns: [],
+  conversations: [
+    {
+      title: 'पूरी बातचीत — Full Conversation (Using All Week 1 Words)',
+      lines: [
+        { speaker: 'Ravi', en: 'Good morning! My name is Ravi Jean. How are you?', hi: 'सुप्रभात! मेरा नाम रवि है। आप कैसे हैं?' },
+        { speaker: 'Suman', en: 'Good morning! I am fine, thank you. My name is Suman.', hi: 'सुप्रभात! मैं ठीक हूँ, शुक्रिया। मेरा नाम सुमन है।' },
+        { speaker: 'Ravi', en: 'Nice to meet you. Where are you from?', hi: 'आपसे मिलकर अच्छा लगा। आप कहाँ से हैं?' },
+        { speaker: 'Suman', en: 'I am from Lucknow. I have a big family.', hi: 'मैं लखनऊ से हूँ। मेरा बड़ा परिवार है।' },
+        { speaker: 'Ravi', en: 'How many people in your family?', hi: 'आपके परिवार में कितने लोग हैं?' },
+        { speaker: 'Suman', en: 'Six people. My father, mother, two brothers, my wife, and I.', hi: 'छह लोग। मेरे पिताजी, माँ, दो भाई, मेरी पत्नी, और मैं।' },
+        { speaker: 'Ravi', en: 'That is a big family! What time is it now?', hi: 'बड़ा परिवार है! अभी कितने बजे हैं?' },
+        { speaker: 'Suman', en: 'It is half past four. Would you like tea?', hi: 'साढ़े चार बजे हैं। चाय लेंगे?' },
+        { speaker: 'Ravi', en: 'Yes, please. I like hot tea with less sugar.', hi: 'हाँ, प्लीज़। मुझे कम चीनी वाली गर्म चाय पसंद है।' },
+        { speaker: 'Suman', en: 'OK! The tea is ready. Here you go.', hi: 'ठीक है! चाय तैयार है। लीजिए।' },
+        { speaker: 'Ravi', en: 'Thank you! This tea is very delicious.', hi: 'शुक्रिया! यह चाय बहुत स्वादिष्ट है।' },
+        { speaker: 'Suman', en: 'You are welcome! See you tomorrow. Good night!', hi: 'कोई बात नहीं! कल मिलते हैं। शुभ रात्रि!' },
+      ]
+    },
+  ],
+  exercises: [
+    {
+      type: 'वीक 1 टेस्ट — Week 1 Test: Translate to English',
+      questions: [
+        { q: 'नमस्ते, मेरा नाम प्रिया है।', a: 'Hello, my name is Priya.' },
+        { q: 'मेरे दो बच्चे हैं।', a: 'I have two children.' },
+        { q: 'आज शुक्रवार है।', a: 'Today is Friday.' },
+        { q: 'यह फूल लाल है।', a: 'This flower is red.' },
+        { q: 'मुझे भूख लगी है।', a: 'I am hungry.' },
+        { q: 'इसकी क़ीमत पाँच सौ रुपये है।', a: 'This costs five hundred rupees.' },
+        { q: 'मेरी माँ खाना बनाती हैं।', a: 'My mother cooks food.' },
+        { q: 'कितने बजे हैं?', a: 'What time is it?' },
+        { q: 'यह जगह बहुत सुंदर है।', a: 'This place is very beautiful.' },
+        { q: 'माफ़ कीजिए, मुझे देर हो गई।', a: 'Sorry, I am late.' },
+      ]
+    },
+    {
+      type: 'English to हिंदी — अंग्रेज़ी से हिंदी',
+      questions: [
+        { q: 'Good evening, how was your day?', a: 'नमस्कार, आपका दिन कैसा रहा?' },
+        { q: 'My father is a doctor.', a: 'मेरे पिताजी डॉक्टर हैं।' },
+        { q: 'I will come tomorrow at three o\'clock.', a: 'मैं कल तीन बजे आऊँगा।' },
+        { q: 'This bag is very big and black.', a: 'यह बैग बहुत बड़ा और काला है।' },
+        { q: 'Do you want tea or coffee?', a: 'आपको चाय चाहिए या कॉफ़ी?' },
+      ]
+    },
+  ],
+  speaking: [
+    { en: 'Practice: Introduce yourself completely in English.', hi: 'अभ्यास: अपना पूरा परिचय अंग्रेज़ी में दें — नाम, कहाँ से हैं, परिवार, पसंद।' },
+    { en: 'Practice: Describe your home — colors, size, rooms.', hi: 'अभ्यास: अपने घर के बारे में बताएँ — रंग, साइज़, कमरे।' },
+    { en: 'Practice: Order food at a restaurant in English.', hi: 'अभ्यास: रेस्टोरेंट में खाना ऑर्डर करें।' },
+    { en: 'Practice: Tell the time, day, and date in English.', hi: 'अभ्यास: समय, दिन, और तारीख़ अंग्रेज़ी में बताएँ।' },
+  ],
+  challenge: 'बड़ी चुनौती! यह सब अंग्रेज़ी में करें:\n1. अपना पूरा परिचय दें (5 वाक्य)\n2. अपने परिवार के बारे में बताएँ (5 वाक्य)\n3. अपने दिन के बारे में बताएँ (3 वाक्य)\n4. खाने का ऑर्डर दें (3 वाक्य)\n5. किसी से पहली बार मिलने की बातचीत करें (5 वाक्य)',
+};
+
+// Placeholder for remaining days (will be filled)
+for (let d = 8; d <= 60; d++) {
+  if (!COURSE[d]) {
+    COURSE[d] = {
+      day: d,
+      titleHi: 'जल्द आ रहा है',
+      titleEn: 'Coming Soon',
+      goal: 'यह दिन जल्द ही तैयार होगा।',
+      words: [],
+      patterns: [],
+      conversations: [],
+      exercises: [],
+      speaking: [],
+      challenge: '',
+    };
+  }
+}
+
+// ====== APP LOGIC ======
+let currentDay = 1;
+const completed = JSON.parse(localStorage.getItem('course_completed') || '{}');
+
+function buildSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  let html = '';
+  WEEKS.forEach(w => {
+    const isOpen = w.days.includes(currentDay);
+    html += `<div class="week-group">
+      <div class="week-header ${isOpen ? 'open' : ''}" onclick="toggleWeek(this)">
+        <span class="hindi">Week ${w.num}: ${w.title}</span>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="week-days ${isOpen ? 'open' : ''}">`;
+    w.days.forEach(d => {
+      const day = COURSE[d];
+      if (!day) return;
+      const active = d === currentDay ? 'active' : '';
+      const done = completed[d] ? 'done' : '';
+      html += `<div class="day-link ${active}" onclick="goToDay(${d})">
+        <span class="check ${done}">${completed[d] ? '✓' : ''}</span>
+        <span>Day ${d}: ${day.titleHi}</span>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  nav.innerHTML = html;
+  updateProgress();
+}
+
+function toggleWeek(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+
+function updateProgress() {
+  const total = 60;
+  const done = Object.keys(completed).length;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${done}/${total} days completed (${pct}%)`;
+}
+
+function goToDay(d) {
+  currentDay = d;
+  renderDay(d);
+  buildSidebar();
+  document.getElementById('topbarTitle').textContent = `Day ${d}: ${COURSE[d].titleEn}`;
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  window.scrollTo(0, 0);
+}
+
+function markComplete(d) {
+  completed[d] = true;
+  localStorage.setItem('course_completed', JSON.stringify(completed));
+  buildSidebar();
+  if (d < 60) goToDay(d + 1);
+}
+
+function renderDay(d) {
+  const day = COURSE[d];
+  const content = document.getElementById('content');
+  let html = '';
+
+  // Header
+  html += `<div class="day-header">
+    <div class="day-number">Day ${day.day} / 60</div>
+    <h1 class="day-title hindi">${day.titleHi} — ${day.titleEn}</h1>
+    <div class="day-goal"><strong class="hindi">आज का लक्ष्य:</strong> <span class="hindi">${day.goal}</span></div>
+  </div>`;
+
+  // Words Section
+  if (day.words && day.words.length > 0) {
+    html += `<div class="section section-words">
+      <div class="section-header"><span class="icon">📖</span> <span class="hindi">आज के शब्द — Today's Words</span> <span class="time">30 min</span></div>
+      <div class="section-body">
+        <table class="word-table">
+          <thead><tr><th>#</th><th>English</th><th class="hindi">हिंदी</th><th class="hindi">उच्चारण</th></tr></thead>
+          <tbody>`;
+    day.words.forEach((w, i) => {
+      html += `<tr>
+        <td>${i+1}</td>
+        <td><span class="word-en">${w.en}</span>
+          <ul class="word-examples">`;
+      w.ex.forEach(e => {
+        html += `<li>${e.en}<span class="hi-trans hindi">${e.hi}</span></li>`;
+      });
+      html += `</ul></td>
+        <td class="word-hi hindi">${w.hi}</td>
+        <td class="word-pron hindi">${w.pron}</td>
+      </tr>`;
+    });
+    html += `</tbody></table></div></div>`;
+  }
+
+  // Patterns Section
+  if (day.patterns && day.patterns.length > 0) {
+    html += `<div class="section section-pattern">
+      <div class="section-header"><span class="icon">🔤</span> <span class="hindi">आज का पैटर्न — Today's Pattern</span> <span class="time">30 min</span></div>
+      <div class="section-body">`;
+    day.patterns.forEach(p => {
+      html += `<div class="pattern-box">
+        <div class="pattern-hi hindi">${p.hi}</div>
+        <div class="pattern-arrow">⬇</div>
+        <div class="pattern-en">${p.en}</div>
+      </div>
+      <ul class="pattern-examples">`;
+      p.examples.forEach(e => {
+        html += `<li><span class="en">${e.en}</span><span class="hi hindi">${e.hi}</span></li>`;
+      });
+      html += `</ul>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Conversations Section
+  if (day.conversations && day.conversations.length > 0) {
+    html += `<div class="section section-convo">
+      <div class="section-header"><span class="icon">💬</span> <span class="hindi">बातचीत — Conversations</span> <span class="time">30 min</span></div>
+      <div class="section-body">`;
+    day.conversations.forEach(c => {
+      html += `<div class="convo">
+        <div class="convo-title hindi">${c.title}</div>`;
+      c.lines.forEach(l => {
+        html += `<div class="convo-line">
+          <span class="convo-speaker">${l.speaker}:</span>
+          <span>${l.en}</span>
+          <span class="convo-hi hindi">${l.hi}</span>
+        </div>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Exercises Section
+  if (day.exercises && day.exercises.length > 0) {
+    html += `<div class="section section-exercise">
+      <div class="section-header"><span class="icon">✏️</span> <span class="hindi">अभ्यास — Practice Exercises</span> <span class="time">30 min</span></div>
+      <div class="section-body">`;
+    day.exercises.forEach(ex => {
+      html += `<div class="exercise">
+        <div class="exercise-type hindi">${ex.type}</div>`;
+      ex.questions.forEach((q, i) => {
+        if (q.hint) {
+          html += `<div class="exercise-q">${i+1}. ${q.q} <span class="exercise-hint hindi">(${q.hint})</span></div>`;
+        } else {
+          html += `<div class="exercise-q">${i+1}. <span class="hindi">${q.q}</span></div>`;
+        }
+      });
+      html += `<details class="answer-key"><summary class="hindi">उत्तर देखें — Show Answers</summary><div class="answers">`;
+      ex.questions.forEach((q, i) => {
+        html += `${i+1}. ${q.a}<br>`;
+      });
+      html += `</div></details></div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Speaking Practice
+  if (day.speaking && day.speaking.length > 0) {
+    html += `<div class="section section-speak">
+      <div class="section-header"><span class="icon">🗣️</span> <span class="hindi">बोलने का अभ्यास — Speaking Practice</span> <span class="time">15 min</span></div>
+      <div class="section-body">`;
+    day.speaking.forEach(s => {
+      html += `<div class="speak-item">${s.en}<span class="hi-text hindi">${s.hi}</span></div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Challenge
+  if (day.challenge) {
+    html += `<div class="section section-challenge">
+      <div class="section-header"><span class="icon">🎯</span> <span class="hindi">आज की चुनौती — Today's Challenge</span> <span class="time">15 min</span></div>
+      <div class="section-body">
+        <div class="challenge-text hindi" style="white-space:pre-line">${day.challenge}</div>
+      </div>
+    </div>`;
+  }
+
+  // Complete + Nav
+  html += `<div class="complete-section">
+    <button class="btn btn-success" onclick="markComplete(${d})" style="margin:0 auto;font-size:16px;padding:12px 32px;">
+      ✅ <span class="hindi">Day ${d} पूरा हुआ — Mark as Complete</span>
+    </button>
+  </div>`;
+
+  html += `<div class="day-nav">
+    ${d > 1 ? `<button class="btn btn-outline" onclick="goToDay(${d-1})">← Day ${d-1}</button>` : '<span></span>'}
+    ${d < 60 ? `<button class="btn btn-primary" onclick="goToDay(${d+1})">Day ${d+1} →</button>` : '<span></span>'}
+  </div>`;
+
+  content.innerHTML = html;
+}
+
+function printDay() {
+  window.print();
+}
+
+function printWeek() {
+  const week = WEEKS.find(w => w.days.includes(currentDay));
+  if (!week) return;
+  const content = document.getElementById('content');
+  let html = '';
+  week.days.forEach((d, i) => {
+    if (i > 0) html += '<div class="print-day-break"></div>';
+    const origDay = currentDay;
+    currentDay = d;
+    const tempDiv = document.createElement('div');
+    document.body.appendChild(tempDiv);
+    const origContent = content.innerHTML;
+    renderDay(d);
+    html += content.innerHTML;
+    content.innerHTML = origContent;
+    currentDay = origDay;
+    document.body.removeChild(tempDiv);
+  });
+  const printContent = content.innerHTML;
+  content.innerHTML = html;
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => {
+      renderDay(currentDay);
+    }, 500);
+  }, 100);
+}
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+
+// iOS safe area padding
+if (window.navigator.standalone) {
+  document.body.style.paddingTop = 'env(safe-area-inset-top)';
+}
+
+// Init
+goToDay(1);
+buildSidebar();
+</script>
+</body>
+</html>

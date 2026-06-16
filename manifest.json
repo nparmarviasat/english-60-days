@@ -1,0 +1,17 @@
+{
+  "name": "60 दिन में अंग्रेज़ी बोलें",
+  "short_name": "English 60",
+  "description": "60-Day English Speaking Course for Hindi Speakers",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1e293b",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
